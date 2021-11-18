@@ -17,7 +17,7 @@
 #' @noRd
 read_excel_file <- function(file = NULL) {
   if(!is.null(file)) {
-    if(!file.exists(file)) {{}
+    if(file.exists(file)) {
       my_df <- read.xlsx(xlsxFile = file,
                          sheet = 1,
                          colNames = TRUE)
