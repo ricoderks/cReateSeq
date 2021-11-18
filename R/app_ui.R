@@ -3,14 +3,34 @@
 #' @param request Internal parameter for `{shiny}`. 
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @importFrom utils packageVersion
 #' @noRd
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
+    
     # Your application UI logic 
-    fluidPage(
-      h1("cReateSeq")
+    navbarPage(
+      title = paste0("cReateSeq", utils::packageVersion("cReateSeq")),
+      # create sequence table
+      tabPanel(
+        title = "Create sequence table"
+      ), # end sequence table
+      
+      # start help
+      navbarMenu(
+        title = "Help",
+        tabPanel(
+          title = "Bruker",
+          mod_bruker_help_ui(id = "bruker_help")
+        ),
+        "----",
+        tabPanel(
+          title = "About",
+          mod_about_ui(id = "about")
+        )
+      ) # end help
     )
   )
 }
