@@ -12,7 +12,7 @@ app_ui <- function(request) {
     
     # Your application UI logic 
     navbarPage(
-      title = paste0("cReateSeq", utils::packageVersion("cReateSeq")),
+      title = paste0("cReateSeq | v", utils::packageVersion("cReateSeq")),
       # create sequence table
       tabPanel(
         title = "Create sequence table"
