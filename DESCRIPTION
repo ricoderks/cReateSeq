@@ -8,6 +8,7 @@ License: GPL (>= 3)
 Imports: 
     config (>= 0.3.1),
     golem (>= 0.3.1),
+    sessioninfo,
     shiny (>= 1.7.1),
     utils
 Encoding: UTF-8
