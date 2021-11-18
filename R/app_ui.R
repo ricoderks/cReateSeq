@@ -25,6 +25,10 @@ app_ui <- function(request) {
           title = "Bruker",
           mod_bruker_help_ui(id = "bruker_help")
         ),
+        tabPanel(
+          title = "Scies",
+          mod_sciex_help_ui(id = "sciex_help")
+        ),
         "----",
         tabPanel(
           title = "About",

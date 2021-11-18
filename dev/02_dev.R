@@ -21,6 +21,7 @@ usethis::use_package( "sessioninfo" )
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "bruker_help" ) # Bruker help module
+golem::add_module( name = "sciex_help" ) # Sciex help module
 golem::add_module( name = "about" ) # about module
 
 ## Add helper functions ----
