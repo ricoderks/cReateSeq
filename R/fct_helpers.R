@@ -14,6 +14,8 @@
 #'
 #' @importFrom openxlsx read.xlsx
 #'
+#' @author Rico Derks
+#'
 #' @noRd
 read_excel_file <- function(file = NULL) {
   if(!is.null(file)) {
