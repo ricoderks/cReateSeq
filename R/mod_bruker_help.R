@@ -11,6 +11,7 @@ mod_bruker_help_ui <- function(id){
   ns <- NS(id)
   tagList(
     fluidPage(
+      h2("Bruker Help"),
       h3("Note:"),
       p("This will create a sequence table for HyStar. There are several assumptions to be able to use this.",
         HTML("<ul>
