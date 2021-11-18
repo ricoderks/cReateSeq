@@ -17,17 +17,19 @@
 ## Add one line by package you want to add as dependency
 usethis::use_package( "utils" )
 usethis::use_package( "sessioninfo" )
+usethis::use_package( "openxlsx" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "bruker_help" ) # Bruker help module
 golem::add_module( name = "sciex_help" ) # Sciex help module
 golem::add_module( name = "about" ) # about module
+golem::add_module( name = "input_form") # input form module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
 golem::add_fct( "helpers" ) 
-golem::add_utils( "helpers" )
+# golem::add_utils( "helpers" )
 
 ## External resources
 ## Creates .js and .css files at inst/app/www
