@@ -1,6 +1,6 @@
 #' input_form UI Function
 #'
-#' @description A shiny Module.
+#' @description Module containing the input form..
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
@@ -18,38 +18,10 @@ mod_input_form_ui <- function(id){
       
       # project info
       mod_input_project_info_ui(id = ns("input_project_info")),
-      # fluidRow(
-      #   column = 12,
-      #   h4("Project info")),
-      # fluidRow(
-      #   column(width = 4,
-      #          textInput(inputId = ns("username"),
-      #                    label = "User name:",
-      #                    # value = "Rico",
-      #                    placeholder = "Rico")),
-      #   column(width = 4,
-      #          textInput(inputId = ns("projectname"),
-      #                    # value = "test",
-      #                    label = "Project name:",
-      #                    placeholder = "My_project")),
-      #   column(width = 4,
-      #          textInput(inputId = ns("datafolder"),
-      #                    # value = "test_sequence",
-      #                    label = "Data folder:",
-      #                    placeholder = "sequence1")),
-      #   style = "background-color: #E8E8E8"),
-      fluidRow(
-        column = 12,
-        h4("Methods")),
-      fluidRow(
-        column(width = 6,
-               uiOutput(outputId = ns("methods"))),
-        column(width = 6,
-               checkboxInput(inputId = ns("shutdown"),
-                             label = "Use shutdown methods:",
-                             value = FALSE),
-               uiOutput(outputId = ns("use_shutdown"))),
-        style = "background-color: #E8E8E8"),
+
+      # methods
+      mod_input_methods_ui(id = ns("input_methods")),
+      
       fluidRow(
         column = 12,
         h4("Vial positions")),
@@ -110,57 +82,14 @@ mod_input_form_server <- function(id, r){
     mod_input_project_info_server(id = "input_project_info",
                                   r = r)
     
-    ### Generate the method part input fields ###
-    output$methods <- renderUI({
-      req(r$select_system)
-      
-      switch(r$select_system,
-             "bruker" = {
-               tagList(
-                 textInput(inputId = ns("bruker_lcmethod"),
-                           label = "LC method:",
-                           placeholder = "RP.m"),
-                 textInput(inputId = ns("bruker_msmethod"),
-                           label = "MS method:",
-                           placeholder = "MS_pos.m"),
-                 textInput(inputId = ns("bruker_damethod"),
-                           label = "Data analysis method:",
-                           placeholder = "DA_pos.m"))
-             },
-             "sciex" = {
-               tagList(
-                 textInput(inputId = ns("sciex_msmethod"),
-                           label = "Acquistion method:",
-                           # value = "MS_pos.dam",
-                           placeholder = "MS_pos.dam"))
-             })
-    })
+    # methods
+    mod_input_methods_server(id = "input_methods",
+                             r = r)
     
-    ### generate the shutdown method parts
-    output$use_shutdown <- renderUI({
-      req(r$select_system,
-          input$shutdown)
-      
-      if(input$shutdown == TRUE){
-        switch(r$select_system,
-               "bruker" = {
-                 tagList(
-                   textInput(inputId = ns("lcshutdown"),
-                             label = "LC shutdown method:",
-                             placeholder = "RP_shutdown.m"),
-                   textInput(inputId = ns("msshutdown"),
-                             label = "MS shutdown method:",
-                             placeholder = "MS_pos_shutdown.m"))
-               },
-               "sciex" = {
-                 tagList(
-                   textInput(inputId = ns("msshutdown"),
-                             label = "MS shutdown method:",
-                             # value = "shutdown_pos.dam",
-                             placeholder = "shutdown_pos.dam"))
-               })
-      }
-    })
+    
+    
+    
+    
     
     ### Generate the vial positions input fields ###
     output$vial_pos_blank <- renderUI({
@@ -346,31 +275,7 @@ mod_input_form_server <- function(id, r){
       r$export_seq <- NULL
     })
     
-    observeEvent({
-      input$lcshutdown
-    },
-    {
-      req(input$lcshutdown)
-      
-      if(!is.null(input$lcshutdown)) {
-        # disable download button when switching system
-        r$ready_download <- FALSE
-        r$export_seq <- NULL
-      }
-    })
     
-    observeEvent({
-      input$msshutdown
-    },
-    {
-      req(input$msshutdown)
-      
-      if(!is.null(input$msshutdown)) {
-        # disable download button when switching system
-        r$ready_download <- FALSE
-        r$export_seq <- NULL
-      }
-    })
     
     observeEvent({
       input$select_sampleid_col

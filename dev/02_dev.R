@@ -31,6 +31,7 @@ golem::add_module( name = "about" ) # about module
 golem::add_module( name = "input_form") # input form module
 golem::add_module( name = "input_system" ) # module to select system
 golem::add_module( name = "input_project_info" ) # module for project info
+golem::add_module( name = "input_methods" ) # module methods
 golem::add_module( name = "sequence_table") # module showing sequence table
 
 ## Add helper functions ----
