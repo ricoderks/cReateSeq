@@ -38,6 +38,8 @@ mod_input_sample_info_ui <- function(id){
 
 #' input_sample_info Server Functions
 #'
+#' @importFrom utils head
+#'
 #' @noRd 
 mod_input_sample_info_server <- function(id, r){
   moduleServer( id, function(input, output, session){
