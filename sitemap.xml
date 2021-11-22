@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ricoderks.github.io/cReateSeq//index.html</loc>
+  </url>
+  <url>
+    <loc>https://ricoderks.github.io/cReateSeq//reference/create_analyst_seq.html</loc>
+  </url>
+  <url>
+    <loc>https://ricoderks.github.io/cReateSeq//reference/create_hystar_seq.html</loc>
+  </url>
+  <url>
+    <loc>https://ricoderks.github.io/cReateSeq//reference/create_sample_vials.html</loc>
+  </url>
+  <url>
+    <loc>https://ricoderks.github.io/cReateSeq//reference/prepare_sequence_table.html</loc>
+  </url>
+  <url>
+    <loc>https://ricoderks.github.io/cReateSeq//reference/run_app.html</loc>
+  </url>
+</urlset>
