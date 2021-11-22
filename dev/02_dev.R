@@ -33,6 +33,7 @@ golem::add_module( name = "input_system" ) # module to select system
 golem::add_module( name = "input_project_info" ) # module for project info
 golem::add_module( name = "input_methods" ) # module methods info
 golem::add_module( name = "input_vials" ) # module with vial info
+golem::add_module( name = "input_sample_info" ) # module with sample info
 golem::add_module( name = "sequence_table") # module showing sequence table
 
 ## Add helper functions ----

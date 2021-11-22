@@ -21,7 +21,6 @@ prepare_sequence_table <- function(info){
       info$num_samples <- nrow(info$data)
     }
   }
-  print(info)
   
   ### create the sequence list
   # start with blanks

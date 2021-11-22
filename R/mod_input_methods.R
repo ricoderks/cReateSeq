@@ -140,6 +140,11 @@ mod_input_methods_server <- function(id, r){
       }
     })
     
+    # store if shutdown method(s) should be used
+    observeEvent(input$shutdown, {
+      
+      r$shutdown <- input$shutdown
+    })
     
     # store lc shutdown method  
     observeEvent({
@@ -152,9 +157,9 @@ mod_input_methods_server <- function(id, r){
         # disable download button when something chamges
         r$ready_download <- FALSE
         r$export_seq <- NULL
-        r$shutdown_lcshutdown <- input$lcshutdown
+        r$shutdown_lcmethod <- input$lcshutdown
       } else {
-        r$shutdown_lcshutdown <- NULL
+        r$shutdown_lcmethod <- ""
       }
     })
     
@@ -169,9 +174,9 @@ mod_input_methods_server <- function(id, r){
         # disable download button when something chamges
         r$ready_download <- FALSE
         r$export_seq <- NULL
-        r$shutdown_msshutdown <- input$msshutwon
+        r$shutdown_msmethod <- input$msshutdown
       } else {
-        r$shutdown_msshutdown <- NULL
+        r$shutdown_msmethod <- ""
       }
     })
   })
