@@ -18,6 +18,10 @@
 usethis::use_package( "utils" )
 usethis::use_package( "sessioninfo" )
 usethis::use_package( "openxlsx" )
+usethis::use_package( "DT" )
+usethis::use_package( "readr" )
+usethis::use_package( "dplyr" )
+usethis::use_package( "rlang" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -25,10 +29,13 @@ golem::add_module( name = "bruker_help" ) # Bruker help module
 golem::add_module( name = "sciex_help" ) # Sciex help module
 golem::add_module( name = "about" ) # about module
 golem::add_module( name = "input_form") # input form module
+golem::add_module( name = "input_system" ) # module to select system
+golem::add_module( name = "sequence_table") # module showing sequence table
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
 golem::add_fct( "helpers" ) 
+golem::add_fct( "sequence" )
 # golem::add_utils( "helpers" )
 
 ## External resources

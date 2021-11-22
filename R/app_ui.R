@@ -15,7 +15,9 @@ app_ui <- function(request) {
       title = paste0("cReateSeq | v", utils::packageVersion("cReateSeq")),
       # create sequence table
       tabPanel(
-        title = "Create sequence table"
+        title = "Create sequence table",
+        mod_input_form_ui(id = "input_form"),
+        mod_sequence_table_ui(id = "sequence_table")
       ), # end sequence table
       
       # start help
