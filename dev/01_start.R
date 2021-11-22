@@ -59,6 +59,11 @@ usethis::use_git()
 golem::use_utils_ui()
 golem::use_utils_server()
 
+## package down
+usethis::use_pkgdown()
+# for github
+# usethis::use_pkgdown_github_pages()
+
 # You're now set! ----
 
 # go to dev/02_dev.R
