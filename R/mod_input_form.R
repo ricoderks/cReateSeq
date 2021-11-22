@@ -17,26 +17,27 @@ mod_input_form_ui <- function(id){
       mod_input_system_ui(id = ns("input_system")),
       
       # project info
-      fluidRow(
-        column = 12,
-        h4("Project info")),
-      fluidRow(
-        column(width = 4,
-               textInput(inputId = ns("username"),
-                         label = "User name:",
-                         # value = "Rico",
-                         placeholder = "Rico")),
-        column(width = 4,
-               textInput(inputId = ns("projectname"),
-                         # value = "test",
-                         label = "Project name:",
-                         placeholder = "My_project")),
-        column(width = 4,
-               textInput(inputId = ns("datafolder"),
-                         # value = "test_sequence",
-                         label = "Data folder:",
-                         placeholder = "sequence1")),
-        style = "background-color: #E8E8E8"),
+      mod_input_project_info_ui(id = ns("input_project_info")),
+      # fluidRow(
+      #   column = 12,
+      #   h4("Project info")),
+      # fluidRow(
+      #   column(width = 4,
+      #          textInput(inputId = ns("username"),
+      #                    label = "User name:",
+      #                    # value = "Rico",
+      #                    placeholder = "Rico")),
+      #   column(width = 4,
+      #          textInput(inputId = ns("projectname"),
+      #                    # value = "test",
+      #                    label = "Project name:",
+      #                    placeholder = "My_project")),
+      #   column(width = 4,
+      #          textInput(inputId = ns("datafolder"),
+      #                    # value = "test_sequence",
+      #                    label = "Data folder:",
+      #                    placeholder = "sequence1")),
+      #   style = "background-color: #E8E8E8"),
       fluidRow(
         column = 12,
         h4("Methods")),
@@ -101,8 +102,13 @@ mod_input_form_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
+    # which system
     mod_input_system_server(id = "input_system",
                             r = r)
+    
+    # project info
+    mod_input_project_info_server(id = "input_project_info",
+                                  r = r)
     
     ### Generate the method part input fields ###
     output$methods <- renderUI({
@@ -132,11 +138,11 @@ mod_input_form_server <- function(id, r){
     
     ### generate the shutdown method parts
     output$use_shutdown <- renderUI({
-      req(input$select_system,
+      req(r$select_system,
           input$shutdown)
       
       if(input$shutdown == TRUE){
-        switch(input$select_system,
+        switch(r$select_system,
                "bruker" = {
                  tagList(
                    textInput(inputId = ns("lcshutdown"),
@@ -158,9 +164,9 @@ mod_input_form_server <- function(id, r){
     
     ### Generate the vial positions input fields ###
     output$vial_pos_blank <- renderUI({
-      req(input$select_system)
+      req(r$select_system)
       
-      switch(input$select_system,
+      switch(r$select_system,
              "bruker" = {
                tagList(
                  verticalLayout(textInput(inputId = ns("bruker_blank_pos"),
@@ -190,9 +196,9 @@ mod_input_form_server <- function(id, r){
     })
     
     output$vial_pos_qcpool <- renderUI({
-      req(input$select_system)
+      req(r$select_system)
       
-      switch(input$select_system,
+      switch(r$select_system,
              "bruker" = {
                tagList(
                  verticalLayout(textInput(inputId = ns("bruker_qc_pos"),
@@ -222,9 +228,9 @@ mod_input_form_server <- function(id, r){
     })
     
     output$vial_pos_sample <- renderUI({
-      req(input$select_system)
+      req(r$select_system)
       
-      switch(input$select_system,
+      switch(r$select_system,
              "bruker" = {
                tagList(
                  textInput(inputId = ns("bruker_start_sample_pos"),
@@ -344,13 +350,12 @@ mod_input_form_server <- function(id, r){
       input$lcshutdown
     },
     {
-      req(seq_obj,
-          input$lcshutdown)
+      req(input$lcshutdown)
       
       if(!is.null(input$lcshutdown)) {
         # disable download button when switching system
-        seq_obj$ready_download <- FALSE
-        seq_obj$export_seq <- NULL
+        r$ready_download <- FALSE
+        r$export_seq <- NULL
       }
     })
     
@@ -358,8 +363,7 @@ mod_input_form_server <- function(id, r){
       input$msshutdown
     },
     {
-      req(seq_obj,
-          input$msshutdown)
+      req(input$msshutdown)
       
       if(!is.null(input$msshutdown)) {
         # disable download button when switching system
@@ -372,8 +376,7 @@ mod_input_form_server <- function(id, r){
       input$select_sampleid_col
     },
     {
-      req(seq_obj,
-          input$select_sampleid_col)
+      req(input$select_sampleid_col)
       
       if(!is.null(input$select_sampleid_col)) {
         # disable download button when switching system
@@ -386,8 +389,7 @@ mod_input_form_server <- function(id, r){
       input$sample_list_file
     },
     {
-      req(seq_obj,
-          input$sample_list_file)
+      req(input$sample_list_file)
       
       if(!is.null(input$sample_list_file)) {
         # disable download button when switching system
