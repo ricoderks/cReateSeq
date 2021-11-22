@@ -22,24 +22,9 @@ mod_input_form_ui <- function(id){
       # methods
       mod_input_methods_ui(id = ns("input_methods")),
       
-      fluidRow(
-        column = 12,
-        h4("Vial positions")),
-      fluidRow(
-        column(width = 3,
-               uiOutput(outputId = ns("vial_pos_blank"))),
-        column(width = 3,
-               uiOutput(outputId = ns("vial_pos_qcpool"))),
-        column(width = 3,
-               uiOutput(outputId = ns("vial_pos_sample"))),
-        column(width = 3,
-               numericInput(inputId = ns("inj_vol"),
-                            label = "Injection volumen [uL]:",
-                            value = 10,
-                            min = 1,
-                            max = 100,
-                            step = 1)),
-        style = "background-color: #E8E8E8"),
+      # vials
+      mod_input_vials_ui(id = ns("input_vials")),
+      
       fluidRow(
         column = 12,
         h4("Sample info")),
@@ -87,93 +72,12 @@ mod_input_form_server <- function(id, r){
                              r = r)
     
     
+    # vials
+    mod_input_vials_server(id = "input_vials",
+                           r = r)
     
     
     
-    
-    ### Generate the vial positions input fields ###
-    output$vial_pos_blank <- renderUI({
-      req(r$select_system)
-      
-      switch(r$select_system,
-             "bruker" = {
-               tagList(
-                 verticalLayout(textInput(inputId = ns("bruker_blank_pos"),
-                                          label = "Blank vial position:",
-                                          placeholder = "RA1",
-                                          width = "220px"),
-                                numericInput(inputId = ns("num_blank"),
-                                             label = "Number of blanks:",
-                                             value = 3,
-                                             min = 1,
-                                             step = 1,
-                                             width = "220px")))
-             },
-             "sciex" = {
-               tagList(
-                 verticalLayout(textInput(inputId = ns("sciex_blank_pos"),
-                                          label = "Blank vial position:",
-                                          value = "20001",
-                                          placeholder = "20001"),
-                                numericInput(inputId = ns("num_blank"),
-                                             label = "Number of blanks:",
-                                             value = 3,
-                                             min = 1,
-                                             step = 1,
-                                             width = "200px")))
-             })
-    })
-    
-    output$vial_pos_qcpool <- renderUI({
-      req(r$select_system)
-      
-      switch(r$select_system,
-             "bruker" = {
-               tagList(
-                 verticalLayout(textInput(inputId = ns("bruker_qc_pos"),
-                                          label = "QCpool vial position:",
-                                          placeholder = "RA2",
-                                          width = "220px"),
-                                numericInput(inputId = ns("num_qc"),
-                                             label = "Number of QCpool:",
-                                             value = 4,
-                                             min = 1,
-                                             step = 1,
-                                             width = "220px")))
-             },
-             "sciex" = {
-               tagList(
-                 verticalLayout(textInput(inputId = ns("sciex_qc_pos"),
-                                          label = "QCpool vial position:",
-                                          value = "20002",
-                                          placeholder = "20002"),
-                                numericInput(inputId = ns("num_qc"),
-                                             label = "Number of QCpool:",
-                                             value = 4,
-                                             min = 1,
-                                             step = 1,
-                                             width = "220px")))
-             })
-    })
-    
-    output$vial_pos_sample <- renderUI({
-      req(r$select_system)
-      
-      switch(r$select_system,
-             "bruker" = {
-               tagList(
-                 textInput(inputId = ns("bruker_start_sample_pos"),
-                           label = "Start sample position:",
-                           placeholder = "RB1"))
-             },
-             "sciex" = {
-               tagList(
-                 textInput(inputId = ns("sciex_start_sample_pos"),
-                           label = "Start sample position:",
-                           value = "1",
-                           placeholder = "1"))
-             })
-    })
     
     ### generate the ui for generating sample info or reading sample info
     output$sample_info_ui <- renderUI({
@@ -248,35 +152,7 @@ mod_input_form_server <- function(id, r){
     selection = "none"
     )
     
-    ### When something changes remove the sequence list
-    observeEvent({
-      input$select_system
-      input$username
-      input$projectname
-      input$datafolder
-      input$msmethod
-      input$lcmethod
-      input$damethod
-      input$shutdown
-      input$bruker_blank_pos
-      input$bruker_qc_pos
-      input$bruker_start_sample_pos
-      input$sciex_blank_pos
-      input$sciex_qc_pos
-      input$sciex_start_sample_pos
-      input$num_samples
-      input$num_qc
-      input$num_blank
-      input$inj_vol
-      input$sample_info
-    }, {
-      # disable download button when switching system
-      r$ready_download <- FALSE
-      r$export_seq <- NULL
-    })
-    
-    
-    
+
     observeEvent({
       input$select_sampleid_col
     },
