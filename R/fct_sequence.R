@@ -75,7 +75,7 @@ prepare_sequence_table <- function(info){
                                              inj_vol = info$inj_vol))},
              "file" = {
                info$seq_table <- rbind(info$seq_table,
-                                  data.frame(sample_id = paste0("Sample_", values$data[sample_start:sample_end, info$select_sampleid_col]),
+                                  data.frame(sample_id = paste0("Sample_", info$data[sample_start:sample_end, info$select_sampleid_col]),
                                              ms_method = info$ms_method,
                                              lc_method = info$lc_method,
                                              da_method = info$da_method,
