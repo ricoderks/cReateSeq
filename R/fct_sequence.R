@@ -6,8 +6,6 @@
 #' @description Prepare the sequence table
 #'
 #' @param info Sequence object containing all the information.
-#' @param input All the inputs for the UI.
-#' @param values All information of the sample file.
 #'
 #' @return Returns a data frame
 #'
@@ -15,45 +13,15 @@
 #'
 #' @author Rico Derks
 #'
-prepare_sequence_table <- function(info, input){
-  info$user_name <- input$username
-  info$project_name <- input$projectname
-  info$data_folder <- input$datafolder
-  info$use_shutdown <- input$shutdown
-  info$shutdown_lcmethod <- input$lcshutdown
-  info$shutdown_msmethod <- input$msshutdown
-  info$blank_num <- input$num_blank
-  info$qcpool_num <- input$num_qc
-  info$inj_vol <- input$inj_vol
-  
-  switch(input$sample_info,
-         "generate" = {
-           info$num_samples <- input$num_samples
-         },
-         "file" = {
-           if(!is.null(values$data)) {
-             info$num_samples <- nrow(values$data)
-           }
-         })
-  
-  switch(input$select_system,
-         "bruker" = {
-           info$ms_method <- input$bruker_msmethod
-           info$lc_method <- input$bruker_lcmethod
-           info$da_method <- input$bruker_damethod
-           info$blank_pos <- input$bruker_blank_pos
-           info$qcpool_pos <- input$bruker_qc_pos
-           info$sample_start_pos <- input$bruker_start_sample_pos
-         },
-         "sciex" = {
-           info$ms_method <- input$sciex_msmethod
-           info$lc_method <- ""
-           info$da_method <- ""
-           info$blank_pos <- input$sciex_blank_pos
-           info$qcpool_pos <- input$sciex_qc_pos
-           info$sample_start_pos <- input$sciex_start_sample_pos
-           info$shutdown_lcmethod <- ""
-         })
+prepare_sequence_table <- function(info){
+
+  # if the a file is used for sample id's get the number of samples by counting rows  
+  if(info$sample_info == "file") {
+    if(!is.null(info$data)) {
+      info$num_samples <- nrow(info$data)
+    }
+  }
+  print(info)
   
   ### create the sequence list
   # start with blanks
@@ -68,7 +36,7 @@ prepare_sequence_table <- function(info, input){
   # determine the block size
   block_size <- ceiling(info$num_samples / (info$qcpool_num - 1))
   
-  switch(input$select_system,
+  switch(info$select_system,
          "bruker" = { # Bruker sequence list
            vial_pos <- create_sample_vials(start_vial = info$sample_start_pos,
                                            number_samples = as.integer(info$num_samples),
@@ -97,7 +65,7 @@ prepare_sequence_table <- function(info, input){
         sample_end <- info$num_samples
       }
       # add samples
-      switch(input$sample_info,
+      switch(info$sample_info,
              "generate" = {
                info$seq_table <- rbind(info$seq_table,
                                   data.frame(sample_id = sprintf("Sample_cpm%03d", sample_start:sample_end),
@@ -108,7 +76,7 @@ prepare_sequence_table <- function(info, input){
                                              inj_vol = info$inj_vol))},
              "file" = {
                info$seq_table <- rbind(info$seq_table,
-                                  data.frame(sample_id = paste0("Sample_", values$data[sample_start:sample_end, input$select_sampleid_col]),
+                                  data.frame(sample_id = paste0("Sample_", values$data[sample_start:sample_end, info$select_sampleid_col]),
                                              ms_method = info$ms_method,
                                              lc_method = info$lc_method,
                                              da_method = info$da_method,
@@ -136,7 +104,7 @@ prepare_sequence_table <- function(info, input){
                                 inj_vol = rep(info$inj_vol, info$blank_num)))
   
   # add shutdown method when needed
-  if (input$shutdown == TRUE) {
+  if (info$shutdown == TRUE) {
     info$seq_table <- rbind(info$seq_table,
                        data.frame(sample_id = "Standby",
                                   ms_method = info$shutdown_msmethod,
@@ -148,7 +116,7 @@ prepare_sequence_table <- function(info, input){
   ### Create sequence table ###
   # create the table for export
   # Bruker
-  switch(input$select_system,
+  switch(info$select_system,
          "bruker" = { # Bruker Hystar
            info$export_seq <- create_hystar_seq(object = info)
            info$ready_download <- TRUE

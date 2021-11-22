@@ -4,14 +4,10 @@
 \alias{prepare_sequence_table}
 \title{Prepare sequence table}
 \usage{
-prepare_sequence_table(info, input)
+prepare_sequence_table(info)
 }
 \arguments{
 \item{info}{Sequence object containing all the information.}
-
-\item{input}{All the inputs for the UI.}
-
-\item{values}{All information of the sample file.}
 }
 \value{
 Returns a data frame
