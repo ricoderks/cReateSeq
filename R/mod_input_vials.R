@@ -232,6 +232,18 @@ mod_input_vials_server <- function(id, r){
     })
     ####
     
+    #### Injection volume
+    observeEvent(input$inj_vol, {
+      if(!is.null(input$inj_vol)) {
+        r$inj_vol <- input$inj_vol
+        # disable download button when something chamges
+        r$ready_download <- FALSE
+        r$export_seq <- NULL
+      } else {
+        r$inj_vol <- NULL
+      }
+    })
+    #####
     
     
   })
