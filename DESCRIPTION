@@ -1,6 +1,6 @@
 Package: cReateSeq
 Title: Create sequencetables
-Version: 0.0.1.9000
+Version: 0.0.2
 Authors@R: person('Rico', 'Derks', email = 'r.j.e.derks@lumc.nl', role = c('cre', 'aut'))
 Description: Create sequence tables for several different
     mass spectrometers.
