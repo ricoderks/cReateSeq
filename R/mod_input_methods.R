@@ -64,41 +64,55 @@ mod_input_methods_server <- function(id, r){
     # store lc method bruker
     observeEvent(input$bruker_lcmethod, {
       
-      if(!is.null(input$lcmethod)) {
-        r$lcmethod <- input$lcmethod
+      if(!is.null(input$bruker_lcmethod)) {
+        r$lc_method <- input$bruker_lcmethod
         # disable download button when something chamges
         r$ready_download <- FALSE
         r$export_seq <- NULL
       } else {
-        r$lcmethod <- NULL
+        r$lc_method <- ""
       }
     })
     
     # store ms method bruker
     observeEvent(input$bruker_msmethod, {
       
-      if(!is.null(input$msmethod)) {
-        r$msmethod <- input$msmethod
+      if(!is.null(input$bruker_msmethod)) {
+        r$ms_method <- input$bruker_msmethod
         # disable download button when something chamges
         r$ready_download <- FALSE
         r$export_seq <- NULL
       } else {
-        r$msmethod <- NULL
+        r$ms_method <- ""
       }
     })
     
     # store da method bruker
     observeEvent(input$bruker_damethod, {
       
-      if(!is.null(input$damethod)) {
-        r$damethod <- input$damethod
+      if(!is.null(input$bruker_damethod)) {
+        r$da_method <- input$bruker_damethod
         # disable download button when something chamges
         r$ready_download <- FALSE
         r$export_seq <- NULL
       } else {
-        r$damethod <- NULL
+        r$da_method <- ""
       }
     })
+    
+    # store ms method Sciex
+    observeEvent(input$sciex_msmethod, {
+      
+      if(!is.null(input$sciex_msmethod)) {
+        r$ms_method <- input$sciex_msmethod
+        # disable download button when something chamges
+        r$ready_download <- FALSE
+        r$export_seq <- NULL
+      } else {
+        r$ms_method <- ""
+      }
+    })
+    
     
     ### generate the shutdown method parts
     output$use_shutdown <- renderUI({
@@ -138,9 +152,9 @@ mod_input_methods_server <- function(id, r){
         # disable download button when something chamges
         r$ready_download <- FALSE
         r$export_seq <- NULL
-        r$lcshutdown <- input$lcshutdown
+        r$shutdown_lcshutdown <- input$lcshutdown
       } else {
-        r$lcshutdown <- NULL
+        r$shutdown_lcshutdown <- NULL
       }
     })
     
@@ -155,9 +169,9 @@ mod_input_methods_server <- function(id, r){
         # disable download button when something chamges
         r$ready_download <- FALSE
         r$export_seq <- NULL
-        r$msshutdown <- input$msshutwon
+        r$shutdown_msshutdown <- input$msshutwon
       } else {
-        r$msshutdown <- NULL
+        r$shutdown_msshutdown <- NULL
       }
     })
   })
