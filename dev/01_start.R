@@ -61,8 +61,8 @@ golem::use_utils_server()
 
 ## package down
 usethis::use_pkgdown()
-# for github
-# usethis::use_pkgdown_github_pages()
+# for github, create github action
+usethis::use_github_action("pkgdown")
 
 # You're now set! ----
 

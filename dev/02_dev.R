@@ -42,10 +42,6 @@ golem::add_fct( "helpers" )
 golem::add_fct( "sequence" )
 # golem::add_utils( "helpers" )
 
-## update website with pkgdown
-# Run to build the website
-pkgdown::build_site()
-
 ## External resources
 ## Creates .js and .css files at inst/app/www
 # golem::add_js_file( "script" )
